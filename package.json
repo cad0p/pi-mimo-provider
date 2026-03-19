@@ -1,0 +1,64 @@
+{
+	"name": "pi-mimo-provider",
+	"version": "1.0.0",
+	"description": "Xiaomi MiMo LLM provider extension for pi coding agent",
+	"license": "MIT",
+	"author": "Xiaomi MiMo Team",
+	"type": "module",
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js",
+			"default": "./dist/index.js"
+		},
+		"./extension": {
+			"types": "./dist/extension.d.ts",
+			"import": "./dist/extension.js",
+			"default": "./dist/extension.js"
+		}
+	},
+	"files": [
+		"dist",
+		"README.md",
+		"LICENSE"
+	],
+	"scripts": {
+		"build": "tsup",
+		"build:watch": "tsup --watch",
+		"typecheck": "tsc --noEmit",
+		"test": "bun test",
+		"prepublishOnly": "bun run typecheck && bun run build && bun run test",
+		"check": "bun run typecheck && bun run build && bun run test"
+	},
+	"devDependencies": {
+		"@mariozechner/pi-coding-agent": "^0.52.0",
+		"@mariozechner/pi-ai": "^0.52.0",
+		"@types/bun": "^1.1.0",
+		"tsup": "^8.3.5",
+		"typescript": "^5.6.3"
+	},
+	"peerDependencies": {
+		"@mariozechner/pi-coding-agent": ">=0.52.0"
+	},
+	"peerDependenciesMeta": {
+		"@mariozechner/pi-coding-agent": {
+			"optional": true
+		}
+	},
+	"keywords": [
+		"pi",
+		"mimo",
+		"xiaomi",
+		"llm",
+		"ai",
+		"provider",
+		"extension",
+		"coding-agent"
+	],
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/af/pi-mimo-provider.git"
+	}
+}
