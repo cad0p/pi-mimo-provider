@@ -59,7 +59,7 @@
 		"coding-agent"
 	],
 	"pi": {
-		"extensions": ["./src/extension.ts"]
+		"extensions": ["./index.ts"]
 	},
 	"repository": {
 		"type": "git",

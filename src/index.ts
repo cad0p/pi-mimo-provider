@@ -12,15 +12,16 @@ export {
 	MIMO_V2_PRO,
 	MIMO_V2_OMNI,
 	MIMO_7B_RL,
+	MIMO_V2_5_PRO,
+	MIMO_V2_5,
 	MIMO_BASE_URL,
-	MIMO_API_KEY_ENV,
 } from "./models.js";
 
 import type { ProviderConfig } from "@mariozechner/pi-coding-agent";
-import { MIMO_BASE_URL, MIMO_API_KEY_ENV, MIMO_MODELS } from "./models.js";
+import { MIMO_BASE_URL, MIMO_MODELS } from "./models.js";
 
 export interface MiMoProviderOptions {
-	/** API key. Defaults to XIAOMI_MIMO_API_KEY env var. */
+	/** API key. Defaults to XIAOMI_API_KEY env var (resolved by pi at request time). */
 	apiKey?: string;
 	/** Override the base URL. Defaults to https://api.xiaomimimo.com/v1 */
 	baseUrl?: string;
@@ -40,7 +41,7 @@ export interface MiMoProviderOptions {
 export function createMiMoProvider(options: MiMoProviderOptions = {}): ProviderConfig {
 	return {
 		api: "openai-completions",
-		apiKey: options.apiKey ?? `\${${MIMO_API_KEY_ENV}}`,
+		apiKey: options.apiKey ?? "XIAOMI_API_KEY",
 		baseUrl: options.baseUrl ?? MIMO_BASE_URL,
 		headers: options.headers,
 		models: MIMO_MODELS.map((m) => ({
