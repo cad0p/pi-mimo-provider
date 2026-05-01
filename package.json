@@ -29,7 +29,7 @@
 		"build:watch": "tsup --watch",
 		"typecheck": "tsc --noEmit",
 		"test": "bun test",
-		"prepublishOnly": "bun run typecheck && bun run build && bun run test",
+		"prepublishOnly": "npm run typecheck && npm run build",
 		"check": "bun run typecheck && bun run build && bun run test"
 	},
 	"devDependencies": {
@@ -63,6 +63,6 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/af/pi-mimo-provider.git"
+		"url": "git+https://github.com/cad0p/pi-mimo-provider.git"
 	}
 }

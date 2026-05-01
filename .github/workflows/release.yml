@@ -2,7 +2,7 @@ name: Auto Release
 
 on:
   push:
-    branches: [main]
+    branches: [main, 'release/*']
 
 permissions:
   contents: write
@@ -18,29 +18,17 @@ jobs:
     steps:
       - id: release
         uses: cad0p/semver-calver-release/release@main
-
-      - name: Checkout
-        if: steps.release.outputs.has_changes == 'true'
-        uses: actions/checkout@v4
         with:
-          ref: ${{ github.sha }}
+          skip_release: ${{ github.ref != 'refs/heads/main' }}
 
-      - name: Setup Bun
-        if: steps.release.outputs.has_changes == 'true'
-        uses: oven-sh/setup-bun@v1
+  publish:
+    needs: release
+    if: github.ref == 'refs/heads/main' && needs.release.outputs.has_changes == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: cad0p/semver-calver-release/npm-publish@main
         with:
-          bun-version: latest
-
-      - name: Install dependencies
-        if: steps.release.outputs.has_changes == 'true'
-        run: bun install --frozen-lockfile
-
-      - name: Build package
-        if: steps.release.outputs.has_changes == 'true'
-        run: bun run build
-
-      - name: Publish to npm
-        if: steps.release.outputs.has_changes == 'true'
-        run: bun publish --access public
-        env:
-          NPM_CONFIG_TOKEN: ${{ secrets.NPM_TOKEN }}
+          tag: v${{ needs.release.outputs.version }}
