@@ -7,7 +7,6 @@ import {
 	MIMO_V2_OMNI,
 	MIMO_7B_RL,
 	MIMO_BASE_URL,
-	MIMO_API_KEY_ENV,
 } from "./index.js";
 
 describe("MiMo models", () => {
@@ -67,7 +66,7 @@ describe("MiMo models", () => {
 	test("MIMO_V2_OMNI supports images", () => {
 		expect(MIMO_V2_OMNI.input).toContain("image");
 		expect(MIMO_V2_OMNI.input).toContain("text");
-		expect(MIMO_V2_OMNI.contextWindow).toBe(1_000_000);
+		expect(MIMO_V2_OMNI.contextWindow).toBe(256_000);
 	});
 
 	test("MIMO_7B_RL has compact context", () => {
@@ -77,7 +76,6 @@ describe("MiMo models", () => {
 
 	test("constants are correct", () => {
 		expect(MIMO_BASE_URL).toBe("https://api.xiaomimimo.com/v1");
-		expect(MIMO_API_KEY_ENV).toBe("XIAOMI_MIMO_API_KEY");
 	});
 });
 
@@ -87,7 +85,7 @@ describe("createMiMoProvider", () => {
 
 		expect(config.api).toBe("openai-completions");
 		expect(config.baseUrl).toBe("https://api.xiaomimimo.com/v1");
-		expect(config.apiKey).toBe("${XIAOMI_MIMO_API_KEY}");
+		expect(config.apiKey).toBe("XIAOMI_API_KEY");
 		expect(config.models).toBeDefined();
 		expect(config.models!.length).toBe(MIMO_MODELS.length);
 	});
@@ -141,9 +139,9 @@ describe("createMiMoProvider", () => {
 		expect(hasTts).toBe(false);
 	});
 
-	test("default env var pattern in apiKey", () => {
+	test("default env var name in apiKey", () => {
 		const config = createMiMoProvider();
-		// Should use the ${VAR} pattern for pi config resolution
-		expect(config.apiKey).toMatch(/^\$\{.+\}$/);
+		// Should be a bare env var name for pi's resolveConfigValue
+		expect(config.apiKey).toBe("XIAOMI_API_KEY");
 	});
 });

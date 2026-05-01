@@ -15,11 +15,12 @@
  * pi --extension pi-mimo-provider/extension
  * ```
  *
- * Set the `XIAOMI_MIMO_API_KEY` environment variable before launching pi.
+ * Set the `XIAOMI_API_KEY` environment variable, or use `/login` in pi
+ * to store an API key in `~/.pi/agent/auth.json`.
  */
 
 import type { ExtensionAPI } from "@mariozechner/pi-coding-agent";
-import { createMiMoProvider } from "./index.js";
+import { createMiMoProvider } from "./src/index.js";
 
 export default function (pi: ExtensionAPI) {
 	pi.registerProvider("xiaomi-mimo", createMiMoProvider());

@@ -6,15 +6,17 @@
 
 Xiaomi MiMo LLM provider for the [pi](https://github.com/badlogic/pi-mono) coding agent.
 
-Registers MiMo models (V2-Flash, V2-Pro, V2-Omni, 7B-RL) using the OpenAI-compatible chat completions API at `https://api.xiaomimimo.com/v1`.
+Registers MiMo models (V2.5-Pro, V2.5, V2-Pro, V2-Omni, V2-Flash, 7B-RL) using the OpenAI-compatible chat completions API at `https://api.xiaomimimo.com/v1`.
 
 ## Models
 
 | Model | Context | Reasoning | Images | Cost (in/out per 1M tok) |
 |-------|---------|-----------|--------|--------------------------|
-| MiMo-V2-Flash | 256k | ✅ | ❌ | $0.10 / $0.30 |
+| MiMo-V2.5-Pro | 1M | ✅ | ✅ | $1.00 / $3.00 |
+| MiMo-V2.5 | 1M | ✅ | ✅ | $0.40 / $2.00 |
 | MiMo-V2-Pro | 1M | ✅ | ❌ | $1.00 / $3.00 |
-| MiMo-V2-Omni | 1M | ✅ | ✅ | TBD |
+| MiMo-V2-Omni | 256k | ✅ | ✅ | $0.40 / $2.00 |
+| MiMo-V2-Flash | 256k | ✅ | ❌ | $0.10 / $0.30 |
 | MiMo-7B-RL | 32k | ✅ | ❌ | Free |
 
 ## Install
@@ -44,6 +46,8 @@ bun add pi-mimo-provider
 ### 1. Set your API key
 
 ```bash
+export XIAOMI_API_KEY="your-api-key-here"
+# or
 export XIAOMI_MIMO_API_KEY="your-api-key-here"
 ```
 
@@ -91,7 +95,7 @@ Creates a `ProviderConfig` for registration with pi.
 
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
-| `apiKey` | `string` | `${XIAOMI_MIMO_API_KEY}` | API key (supports pi env var syntax) |
+| `apiKey` | `string` | `XIAOMI_API_KEY` (bare env var name, resolved by pi at request time) | API key or env var name |
 | `baseUrl` | `string` | `https://api.xiaomimimo.com/v1` | API base URL |
 | `headers` | `Record<string, string>` | — | Custom HTTP headers |
 
@@ -99,15 +103,16 @@ Creates a `ProviderConfig` for registration with pi.
 
 ```ts
 // Model configs
-export const MIMO_V2_FLASH: MiMoModelConfig;
+export const MIMO_V2_5_PRO: MiMoModelConfig;
+export const MIMO_V2_5: MiMoModelConfig;
 export const MIMO_V2_PRO: MiMoModelConfig;
 export const MIMO_V2_OMNI: MiMoModelConfig;
+export const MIMO_V2_FLASH: MiMoModelConfig;
 export const MIMO_7B_RL: MiMoModelConfig;
 export const MIMO_MODELS: MiMoModelConfig[];
 
 // Constants
 export const MIMO_BASE_URL: string;
-export const MIMO_API_KEY_ENV: string;
 
 // Factory
 export function createMiMoProvider(options?: MiMoProviderOptions): ProviderConfig;
