@@ -1,5 +1,9 @@
 # pi-mimo-provider
 
+[![npm version](https://img.shields.io/npm/v/pi-mimo-provider)](https://www.npmjs.com/package/pi-mimo-provider)
+[![npm downloads](https://img.shields.io/npm/dm/pi-mimo-provider)](https://www.npmjs.com/package/pi-mimo-provider)
+[![license](https://img.shields.io/npm/l/pi-mimo-provider)](LICENSE)
+
 Xiaomi MiMo LLM provider for the [pi](https://github.com/badlogic/pi-mono) coding agent.
 
 Registers MiMo models (V2-Flash, V2-Pro, V2-Omni, 7B-RL) using the OpenAI-compatible chat completions API at `https://api.xiaomimimo.com/v1`.
@@ -13,21 +17,23 @@ Registers MiMo models (V2-Flash, V2-Pro, V2-Omni, 7B-RL) using the OpenAI-compat
 | MiMo-V2-Omni | 1M | ✅ | ✅ | TBD |
 | MiMo-7B-RL | 32k | ✅ | ❌ | Free |
 
-## Setup
-
-### 1. Install
+## Install
 
 ```bash
+npm install pi-mimo-provider
+# or
 bun add pi-mimo-provider
 ```
 
-### 2. Set your API key
+## Setup
+
+### 1. Set your API key
 
 ```bash
 export XIAOMI_MIMO_API_KEY="your-api-key-here"
 ```
 
-### 3. Use as pi extension
+### 2. Use as pi extension
 
 Add to `~/.pi/agent/settings.json`:
 
@@ -43,7 +49,7 @@ Or via CLI flag:
 pi --extension pi-mimo-provider/extension
 ```
 
-### 4. Or use programmatically
+### 3. Or use programmatically
 
 ```ts
 import { createMiMoProvider } from "pi-mimo-provider";
@@ -93,6 +99,8 @@ export function createMiMoProvider(options?: MiMoProviderOptions): ProviderConfi
 
 ## Development
 
+Requires [Bun](https://bun.sh) for running tests.
+
 ```bash
 bun install        # Install deps
 bun run typecheck  # Type check
@@ -103,4 +111,4 @@ bun run check      # All of the above
 
 ## License
 
-MIT
+MIT © [cad0p](https://github.com/cad0p)
