@@ -19,6 +19,20 @@ Registers MiMo models (V2-Flash, V2-Pro, V2-Omni, 7B-RL) using the OpenAI-compat
 
 ## Install
 
+As a pi package (recommended):
+
+```bash
+pi install npm:pi-mimo-provider
+```
+
+Latest prerelease (calver builds between base releases):
+
+```bash
+pi install npm:pi-mimo-provider@next
+```
+
+Or via npm/bun for programmatic use:
+
 ```bash
 npm install pi-mimo-provider
 # or
@@ -35,7 +49,9 @@ export XIAOMI_MIMO_API_KEY="your-api-key-here"
 
 ### 2. Use as pi extension
 
-Add to `~/.pi/agent/settings.json`:
+If you installed via `pi install`, the extension is already registered.
+
+Otherwise, add to `~/.pi/agent/settings.json`:
 
 ```json
 {
